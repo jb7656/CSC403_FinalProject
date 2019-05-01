@@ -1,1 +1,9 @@
 Readme:
+Classifiers used:
+  SGD Classifier 
+  Decision trees
+  
+Data analysis steps:
+  Convert weather description into integer values
+  Map wind direction into categories
+  Create Graph for explaining what output can be (predicting weather description)
