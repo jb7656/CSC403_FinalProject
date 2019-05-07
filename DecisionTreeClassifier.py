@@ -7,6 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.tree import export_graphviz
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 PATH = os.getcwd() + "/data/" # "/home/jb7656/MachineLearning/Group Project/Datasets/historical-hourly-weather-data/"
 FILE_NAMES = ["weather_description.csv","humidity.csv", "pressure.csv", "temperature.csv",
@@ -22,7 +23,7 @@ def load_weather_data():
     for x in FILE_NAMES:
         df = pd.read_csv(PATH + x)
         
-        df = df[["Portland"]]
+        df = df[["Las Vegas"]]
 
         if(index == 0):
             result_df = pd.concat([result_df, df])
@@ -96,10 +97,14 @@ def convert_desc_to_cat(argument):
         return 9
     elif(argument == "thunderstorm with light rain"):
         return 9
+    elif(argument == "thunderstorm with heavy rain"):
+        return 9
     elif(argument == "freezing rain"):
         return 10
     elif(argument == "sleet"):
         return 10 #same as freezing rain
+    elif(argument == "squalls"):
+        return 11
     else:
         print(argument, "found uncategorized instance")
         return -1
@@ -142,26 +147,58 @@ def main():
     weather_desc = weather_desc[1:]
 
     #split the data into a training set and testing set
-    data_train, data_test, label_train, label_test = train_test_split(data, weather_desc, test_size = 0.1)
+    data_train, data_test, label_train, label_test = train_test_split(data, weather_desc, test_size = 0.3)
 
-
+    Gini_scores = []
+    Entropy_scores = []
+    depth_values = []
     #Data has been processed at this point and is all numerical
-    depth = 5
-    while depth < 12: #testing various depths and scoring their classification performance
+    depth = 3
+    while depth < 16: #testing various depths and scoring their classification performance
         tree_clf = DecisionTreeClassifier(max_depth = depth, min_samples_split = 10)
         tree_clf.fit(data_train, label_train)
-        print("(Gini) depth: ", depth, " score: ", (100 * tree_clf.score(data_test, label_test)),"%")
+        x = (100 * tree_clf.score(data_test, label_test))
+        #print("(Gini) depth: ", depth, " score: ", (100 * tree_clf.score(data_test, label_test)),"%")
+        Gini_scores.append(x)
+        depth_values.append(depth)
         depth = depth + 1
 
-    depth = 5
-    while depth < 12: #testing various depths using entropy rather than gini and scoring performance
+    depth = 3
+    while depth < 16: #testing various depths using entropy rather than gini and scoring performance
         tree_clf = DecisionTreeClassifier(max_depth = depth, criterion = "entropy", min_samples_split = 10)
         tree_clf.fit(data_train, label_train)
-        print("(Entropy) depth: ", depth, " score: ", (100 * tree_clf.score(data_test, label_test)), "%")
+        x = (100 * tree_clf.score(data_test, label_test))
+        #print("(Entropy) depth: ", depth, " score: ", (100 * tree_clf.score(data_test, label_test)), "%")
+        Entropy_scores.append(x)
         depth = depth + 1
     #use this export statement to create visualized tree
     #export_graphviz(tree_clf, out_file = "tree_path.dot",
                    #rounded = True, filled = True, class_names = Classification_names)
+
+    
+    print("Gini: ")
+    print(Gini_scores)
+
+    plt.xlim(2,16)
+    plt.ylim(75,79)
+    plt.xlabel("Maximum tree depth")
+    plt.ylabel("Validation score (%)")
+    plt.title("Tree depth vs score")
+    plt.scatter(depth_values, Gini_scores, color = 'g')
+    plt.scatter(depth_values, Entropy_scores, color = 'r')
+    plt.legend(["Gini based", "Entropy based"])
+    plt.show()
+
+    #plt.xlim(2,16)
+    #plt.ylim(75,80)
+    #plt.xlabel("Maximum tree depth")
+    #plt.ylabel("Validation score (%)")
+    #plt.title("Tree depth vs score for Entropy based tree")
+    print("Entropy: ")
+    print(Entropy_scores)
+
+    #plt.scatter(depth_values, Entropy_scores)
+    #plt.show()
     
 
 main()
