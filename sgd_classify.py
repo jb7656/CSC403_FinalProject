@@ -53,12 +53,12 @@ def clean(data):
     data.where(data["weather_description"] != "freezing rain", inplace=True)
     data.where(data["weather_description"] != "heavy snow", inplace=True)
     data.where(data["weather_description"] != "sleet", inplace=True)
-
+    
     data.where(data["weather_description"] != "overcast clouds", inplace=True)
     data.where(data["weather_description"] != "broken clouds", inplace=True)
     data.where(data["weather_description"] != "few clouds", inplace=True)
     data.where(data["weather_description"] != "scattered clouds", inplace=True)
-
+    
     data.dropna(inplace=True)
     # combine some descriptions
     y = data["weather_description"]
@@ -75,12 +75,39 @@ def clean(data):
     #y.replace("broken clouds", "clouds", inplace=True)
     #y.replace("few clouds", "clouds", inplace=True)
     #y.replace("scattered clouds", "clouds", inplace=True)
+
+    #y = data["weather_description"]
+    #y.replace("mist", "fog", inplace=True)
+    #
+    #y.replace("broken clouds", "scattered clouds", inplace=True)
+    #
+    #y.replace("drizzle", "light rain", inplace=True)
+    #y.replace("light intensity drizzle", "light rain", inplace=True)
+    #
+    #y.replace("overcast clouds", "few clouds", inplace=True)
+    #
+    #y.replace("light intensity shower rain", "moderate rain", inplace=True)
+    #
+    #y.replace("haze", "dust", inplace=True)
+    #y.replace("smoke", "dust", inplace=True)
+    #
+    #y.replace("heavy intensity rain", "very heavy rain", inplace=True)
+    #
+    #y.replace("heavy snow", "snow", inplace=True)
+    #y.replace("light snow", "snow", inplace=True)
+    #
+    #y.replace("proximity thunderstorm", "thunderstorm", inplace=True)
+    #y.replace("thunderstorm with light rain", "thunderstorm", inplace=True)
+    #y.replace("thunderstorm with heavy rain", "thunderstorm", inplace=True)
+    #
+    #y.replace("freezing rain", "sleet", inplace=True)
+
     # encode
     encoder = LabelEncoder()
     # put back
     data.drop("weather_description", axis=1, inplace=True)
     data["weather_description"] = encoder.fit_transform(y)
-    data.reset_index(inplace=True)
+    data.reset_index(drop=True, inplace=True)
 
     # standardize all the numerical values
     X = data.drop("weather_description", axis=1)
