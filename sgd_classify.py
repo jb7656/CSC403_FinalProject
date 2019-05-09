@@ -40,41 +40,107 @@ def clean(data):
     data = data.copy()
     data.dropna(inplace=True) # drop any rows with a missing value
 
+
+    y = data["weather_description"]
+    y.replace("mist", "fog", inplace=True)
+    y.replace("broken clouds", "scattered clouds", inplace=True)
+    y.replace("drizzle", "light rain", inplace=True)
+    y.replace("light intensity drizzle", "lig, inplace=True)t rain", inplace=True)
+    y.replace("overcast clouds", "few clouds", inplace=True)
+    y.replace("light intensity shower rain", "moderate rain", inplace=True)
+    y.replace("haze", "smoke", inplace=True)
+    y.replace("dust", "smoke", inplace=True)
+    y.replace("very heavy rain", "heavy intensity rain", inplace=True)
+    y.replace("heavy snow", "snow", inplace=True)
+    y.replace("light snow", "snow", inplace=True)
+    y.replace("proximity thunderstorm", "thunderstorm", inplace=True)
+    y.replace("thunderstorm with light rain", "thunderstorm", inplace=True)
+    y.replace("thunderstorm with heavy rain", "thunderstorm", inplace=True)
+    y.replace("freezing rain", "sleet", inplace=True)
+
+    ## weather description modifications
+    ## remove some descriptions
+    #data.where(data["weather_description"] != "mist", inplace=True)
+    #data.where(data["weather_description"] != "fog", inplace=True)
+    #data.where(data["weather_description"] != "haze", inplace=True)
+    #data.where(data["weather_description"] != "smoke", inplace=True)
+    ##data.where(data["weather_description"] != "light snow", inplace=True)
+    ##data.where(data["weather_description"] != "snow", inplace=True)
+    #data.where(data["weather_description"] != "proximity thunderstorm", inplace=True)
+    #data.where(data["weather_description"] != "dust", inplace=True)
+    #data.where(data["weather_description"] != "freezing rain", inplace=True)
+    ##data.where(data["weather_description"] != "heavy snow", inplace=True)
+    #data.where(data["weather_description"] != "sleet", inplace=True)
+    #
+    ##data.where(data["weather_description"] != "overcast clouds", inplace=True)
+    ##data.where(data["weather_description"] != "broken clouds", inplace=True)
+    ##data.where(data["weather_description"] != "few clouds", inplace=True)
+    ##data.where(data["weather_description"] != "scattered clouds", inplace=True)
+    #
+    #data.dropna(inplace=True)
+    ## combine some descriptions
+    #y = data["weather_description"]
+    #
+    #y.replace("sky is clear", "clear", inplace=True)
+    #
+    #y.replace("overcast clouds", "clear", inplace=True)
+    #y.replace("broken clouds", "clear", inplace=True)
+    #y.replace("few clouds", "clear", inplace=True)
+    #y.replace("scattered clouds", "clear", inplace=True)
+    #
+    #y.replace("light rain", "rain", inplace=True)
+    #y.replace("moderate rain", "rain", inplace=True)
+    #y.replace("heavy intensity rain", "rain", inplace=True)
+    #y.replace("light intensity drizzle", "rain", inplace=True)
+    #y.replace("very heavy rain", "rain", inplace=True)
+    #y.replace("thunderstorm", "rain", inplace=True)
+    #y.replace("thunderstorm with light rain", "rain", inplace=True)
+    #y.replace("drizzle", "rain", inplace=True)
+    #
+    ##y.replace("snow", "rain", inplace=True)
+    ##y.replace("light snow", "rain", inplace=True)
+    ##y.replace("heavy snow", "rain", inplace=True)
+    #
+    ##y.replace("overcast clouds", "clouds", inplace=True)
+    ##y.replace("broken clouds", "clouds", inplace=True)
+    ##y.replace("few clouds", "clouds", inplace=True)
+    ##y.replace("scattered clouds", "clouds", inplace=True)
+
     # weather description modifications
     # remove some descriptions
-    data.where(data["weather_description"] != "mist", inplace=True)
-    data.where(data["weather_description"] != "fog", inplace=True)
-    data.where(data["weather_description"] != "haze", inplace=True)
-    data.where(data["weather_description"] != "smoke", inplace=True)
-    data.where(data["weather_description"] != "light snow", inplace=True)
-    data.where(data["weather_description"] != "snow", inplace=True)
-    data.where(data["weather_description"] != "proximity thunderstorm", inplace=True)
-    data.where(data["weather_description"] != "dust", inplace=True)
-    data.where(data["weather_description"] != "freezing rain", inplace=True)
-    data.where(data["weather_description"] != "heavy snow", inplace=True)
-    data.where(data["weather_description"] != "sleet", inplace=True)
-    
-    data.where(data["weather_description"] != "overcast clouds", inplace=True)
-    data.where(data["weather_description"] != "broken clouds", inplace=True)
-    data.where(data["weather_description"] != "few clouds", inplace=True)
-    data.where(data["weather_description"] != "scattered clouds", inplace=True)
-    
-    data.dropna(inplace=True)
-    # combine some descriptions
-    y = data["weather_description"]
-    y.replace("sky is clear", "clear", inplace=True)
-    y.replace("light rain", "rain", inplace=True)
-    y.replace("moderate rain", "rain", inplace=True)
-    y.replace("heavy intensity rain", "rain", inplace=True)
-    y.replace("light intensity drizzle", "rain", inplace=True)
-    y.replace("very heavy rain", "rain", inplace=True)
-    y.replace("thunderstorm", "rain", inplace=True)
-    y.replace("thunderstorm with light rain", "rain", inplace=True)
-    y.replace("drizzle", "rain", inplace=True)
-    #y.replace("overcast clouds", "clouds", inplace=True)
-    #y.replace("broken clouds", "clouds", inplace=True)
-    #y.replace("few clouds", "clouds", inplace=True)
-    #y.replace("scattered clouds", "clouds", inplace=True)
+    #data.where(data["weather_description"] != "mist", inplace=True)
+    #data.where(data["weather_description"] != "fog", inplace=True)
+    #data.where(data["weather_description"] != "haze", inplace=True)
+    #data.where(data["weather_description"] != "smoke", inplace=True)
+    #data.where(data["weather_description"] != "light snow", inplace=True)
+    #data.where(data["weather_description"] != "snow", inplace=True)
+    #data.where(data["weather_description"] != "proximity thunderstorm", inplace=True)
+    #data.where(data["weather_description"] != "dust", inplace=True)
+    #data.where(data["weather_description"] != "freezing rain", inplace=True)
+    #data.where(data["weather_description"] != "heavy snow", inplace=True)
+    #data.where(data["weather_description"] != "sleet", inplace=True)
+    #
+    #data.where(data["weather_description"] != "overcast clouds", inplace=True)
+    #data.where(data["weather_description"] != "broken clouds", inplace=True)
+    #data.where(data["weather_description"] != "few clouds", inplace=True)
+    #data.where(data["weather_description"] != "scattered clouds", inplace=True)
+    #
+    #data.dropna(inplace=True)
+    ## combine some descriptions
+    #y = data["weather_description"]
+    #y.replace("sky is clear", "clear", inplace=True)
+    #y.replace("light rain", "rain", inplace=True)
+    #y.replace("moderate rain", "rain", inplace=True)
+    #y.replace("heavy intensity rain", "rain", inplace=True)
+    #y.replace("light intensity drizzle", "rain", inplace=True)
+    #y.replace("very heavy rain", "rain", inplace=True)
+    #y.replace("thunderstorm", "rain", inplace=True)
+    #y.replace("thunderstorm with light rain", "rain", inplace=True)
+    #y.replace("drizzle", "rain", inplace=True)
+    ##y.replace("overcast clouds", "clouds", inplace=True)
+    ##y.replace("broken clouds", "clouds", inplace=True)
+    ##y.replace("few clouds", "clouds", inplace=True)
+    ##y.replace("scattered clouds", "clouds", inplace=True)
 
     #y = data["weather_description"]
     #y.replace("mist", "fog", inplace=True)
@@ -143,11 +209,11 @@ def print_scores(sgd_clf, X, y):
     print("accuracy")
     print(cross_val_score(sgd_clf, X, y, cv=3, scoring="accuracy"))
     print("precision")
-    print(precision_score(y, y_pred, average=None))
+    print(precision_score(y, y_pred, average='micro'))
     print("recall")
-    print(recall_score(y, y_pred, average=None))
+    print(recall_score(y, y_pred, average='micro'))
     print("f1")
-    print(f1_score(y, y_pred, average=None))
+    print(f1_score(y, y_pred, average='micro'))
 
 def main(data=None):
 
